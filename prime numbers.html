@@ -1,0 +1,25 @@
+<h1>My First JavaScript</h1>
+
+<button type="button"
+onclick="document.getElementById('demo').innerHTML = Date()">
+Click me to display Date and Time.</button>
+
+<p id="demo"></p>
+<script>
+var primeNumber =[];
+for (var inputNumber = 1; inputNumber <= 100; inputNumber++) {
+
+    var isPrime = false;
+    for (var i = 2; i <= inputNumber; i++) {
+        if (inputNumber%i===0 && i!==inputNumber) {
+            isPrime = true;
+        }
+    }
+    if (isPrime === false) {
+            primeNumber.push(inputNumber)
+    }
+}
+console.log("tes" +primeNumber)
+</script>
+</body>
+</html>

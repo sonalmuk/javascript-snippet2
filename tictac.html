@@ -1,0 +1,133 @@
+<html>
+<style>
+.eachCell {
+  display: inline-block;
+  border-right: 1px solid black;
+  border-bottom: 1px solid black;
+  width: 60px;
+  height: 60px;
+  text-align:center;
+  
+}
+
+#divTicTac {
+  width: 240px;
+  height: 240px;
+  margin: 0 auto;
+  padding: 10px;
+  border: 5px;
+}
+.strike {animation: 3s linear 1s slidein;}
+</style>
+<script>
+var clickcount = 0;
+var xCount = 0;
+var oCount = 0;
+
+function createGrid() {
+
+  for (var newrows = 0; newrows < 3; newrows++) {
+    var divRow = document.createElement("div");
+    divRow.setAttribute("id", "row" + newrows);
+    for (var cells = 0; cells < 3; cells++) {
+      var newspan = document.createElement("div");
+
+      newspan.className = "eachCell";
+      var newnode = document.createTextNode("\u00a0");
+      newspan.appendChild(newnode);
+      divRow.appendChild(newspan);
+      
+    }
+    document.getElementById("divTicTac").appendChild(divRow);
+
+  }
+  $(".eachCell").click(function() {
+    clickcount++;
+
+    if (clickcount % 2 == 0) {
+      if (this.innerText == "\u00a0") this.innerText = "X";
+      if (xCount == 3) {
+        checkForWinner('X');
+        xCount = 1;
+        $('#counterShow').text(xCount);
+      } else {
+        xCount++;
+        $('#counterShow').text(xCount);
+      }
+    } else {
+      if (this.innerText == "\u00a0") this.innerText = "O";
+      if (oCount == 3) {
+        checkForWinner('O');
+        oCount = 1;
+
+      } else {
+        oCount++;
+      }
+    }
+    if (xCount > 2 && xCount % 3 == 0) checkForWinner('X');
+    if (oCount > 2 && oCount % 3 == 0) checkForWinner('O');
+  })
+
+}
+createGrid();
+
+function checkForWinner(checkLetter) {
+  //if(clickcount>=8) {alert('game over, please restart');return;}
+  //logic - whether x, or o.
+  //alert('time to check');
+  //assume checking for O
+  var checkFor = checkLetter;
+  var centernode = document.getElementById("row1").childNodes[1];
+  var thisRow = document.getElementById("row1");
+  var previousrow = document.getElementById("row1").previousSibling;
+  var nextrow = document.getElementById("row1").nextSibling;
+  var firstRow = document.getElementById("row0");
+  var lastRow = document.getElementById("row2");
+  // alert(thisnode.firstChild.nodeValue + ' ' + thisnode.lastChild.nodeValue);
+  // alert(previousrow.childNodes[1].innerText);
+  if (centernode.innerText == checkFor) {
+    if (thisRow.childNodes[0].innerText == checkFor && thisRow.childNodes[2].innerText == checkFor) {
+      alert(checkFor + ' is a winner;');
+       thisRow.className="strike";
+       thisRow.style.color="red";
+       thisRow.style.fontWeight="bold";
+      
+    } else if (previousrow.childNodes[1].innerText == checkFor && nextrow.childNodes[1].innerText == checkFor) {
+      alert(checkFor + ' is a winner;');
+    } else if (previousrow.childNodes[0].innerText == checkFor && nextrow.childNodes[2].innerText == checkFor) {
+      alert(checkFor + ' is a winner;');
+    } else if (previousrow.childNodes[2].innerText == checkFor && nextrow.childNodes[0].innerText == checkFor) {
+      alert(checkFor + ' is a winner;');
+    }
+  }
+
+ else if (document.getElementById("row0").childNodes[0].innerText == checkFor) {
+    if (firstRow.childNodes[1].innerText == checkFor && firstRow.childNodes[2].innerText == checkFor) {
+      alert(checkFor + ' is a winner;');
+    } else if (thisRow.childNodes[0].innerText == checkFor && lastRow.childNodes[0].innerText == checkFor) {
+      alert(checkFor + ' is a winner;');
+    }
+  } else if (firstRow.childNodes[2].innerText == checkFor) {
+    if (firstRow.childNodes[1].innerText == checkFor && firstRow.childNodes[0].innerText == checkFor) {
+      alert(checkFor + ' is a winner;');
+    } else if (thisRow.childNodes[2].innerText == checkFor && lastRow.childNodes[2].innerText == checkFor) {
+      alert(checkFor + ' is a winner;');
+    }
+  } else if (lastRow.childNodes[2].innerText == checkFor) {
+    if (lastRow.childNodes[0].innerText == checkFor && lastRow.childNodes[1].innerText == checkFor)
+      alert(checkFor + ' is a winner;');
+  }
+
+}
+
+//add event
+
+</script>
+<body>
+<div id="divTicTac">
+
+</div>
+<div id="counterShow">
+</div>
+</body>
+</html>

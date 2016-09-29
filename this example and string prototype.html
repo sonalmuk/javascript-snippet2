@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<p id="demo"></p>
+
+<script>
+var fullname="John Deo"
+var obj={
+   fullname:"smith kline",
+
+   prop:{
+       fullname:"Liz Taylor",
+       getFullName:function(){
+              return this.fullname;
+       }
+   }
+ 
+
+}
+
+console.log(obj.prop.getFullName());
+var test=obj.prop.getFullName;
+
+console.log(test.call())
+
+var astring="hello!";
+String.prototype.repeatify=function(cnt){
+   var addstr="";
+   for(var i=0;i<cnt;i++){
+     addstr+=this;
+   }
+   return addstr;
+}
+
+document.writeln(astring.repeatify(4));
+</script>
+
+</body>
+</html>

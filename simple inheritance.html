@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<p id="demo">test</p>
+
+<script>
+var classA = function classA(name){
+    this.name=name;
+}
+classA.prototype.greetings=function(){
+         return "Adious " + this.name;
+    }
+
+var hello=new classA("John");
+document.writeln(hello.greetings());
+
+var classB=function classB(message){
+    this.message=message;
+    
+}
+
+classB.prototype=Object.create(classA.prototype);
+classB.prototype.name="sammy";
+
+var moreHello=new classB("How Are you, buddy?");
+
+document.writeln(moreHello.greetings());
+
+
+classB.prototype.greetings=function(){
+   classA.prototype.greetings.call(this);
+   return this.message;
+}
+document.writeln(moreHello.greetings());
+</script>
+
+</body>
+</html>

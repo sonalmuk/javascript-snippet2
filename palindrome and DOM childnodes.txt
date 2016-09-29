@@ -1,0 +1,48 @@
+<div>Data</div><ul><li>Warning</li><li></li></ul><div>Top Secret!</div>
+
+myDiv=document.getElementById("myDiv");
+
+newSpan=document.createElement("span");
+newSpanTxt=document.createTextNode("i am a span in the div");
+
+newSpan.appendChild(newSpanTxt);
+newSpan.className="blue";
+//myDiv.appendChild(newSpan);
+//console.log(myDiv.children.length)
+for(var inx =0; inx<document.body.childNodes.length;inx++){
+document.body.childNodes[inx].nodeValue="I am node " + document.body.childNodes[inx].nodeType;
+//if(document.body.childNodes[inx].nodeType==1)console.log('>>>>>>'+document.body.childNodes[inx].innerText);
+//else console.log('$$$$'+document.body.childNodes[inx].nodeValue);
+}
+console.log("node length"+document.body.childNodes.length);
+console.log("children length"+document.body.children.length);
+myString="A man, a plan, a canal Panam";
+var myString=myString.replace(/[^a-zA-Z 0-9]/g,'');
+ myString=myString.replace(/\s/g,'').toLowerCase();
+console.log("my string" + myString);
+ var midLetter="";
+  var isPalindrome=true;
+//if(myString.length%2==0) {
+		myString1=myString.substring(0,myString.length/2);
+    console.log(myString1);
+    myString2=myString.substring(myString.length/2);
+    //console.log(myString2);
+    
+ //}
+
+ //console.log('!!!mod ' + myString2.length+ ' '+myString1.length);
+ if(myString2.length>myString1.length) {
+  midLetter=myString2.substring(0,1);
+  myString2=myString2.substring(1);
+ }
+ //console.log("mid"+midLetter);
+ console.log("2"+myString2);
+var reversedstr="";
+ counterforString2=myString1.length-1;
+ for(var i=myString2.length-1;i>=0; i--) {
+   reversedstr+=myString2[i];
+   //console.log(reversedstr);
+ }
+ console.log(reversedstr);
+ if(myString1!=reversedstr)isPalindrome=false;
+console.log('what am i' + isPalindrome);

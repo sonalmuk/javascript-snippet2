@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+  <script type="text/javascript" src="/js/lib/dummy.js"></script>
+
+  <link rel="stylesheet" type="text/css" href="/css/result-light.css">
+  
+  <style type="text/css">
+    
+    .divPascal{text-align:center}
+  </style>
+
+  <title>Pascal's triangle</title>
+
+  
+<script type='text/javascript'><!--
+window.onload=function(){
+var triangleAry=[];
+triangleAry.push([1]);
+
+triangleAry.push([1,1]);
+for (var i=1;i<15;i++){ 
+      var rowArray=[];
+      rowArray.push(1);
+      console.log(triangleAry[1].length);
+    for(var j=0; j<triangleAry[i].length-1;j++ ){
+         num1=Number(triangleAry[i][j]);
+         num2=Number(triangleAry[i][j+1]);
+         rowArray.push(num1+num2);
+    }
+    rowArray.push(1);
+    triangleAry.push(rowArray);
+}
+console.log(triangleAry);
+var newRowDiv=""
+for(var l=0;l<triangleAry.length;l++){
+  newRowDiv=document.createElement("div");
+  newRowDiv.style.textAlign="center";
+  for(var m=0;m<triangleAry[l].length;m++){
+     var newSpan=document.createElement("span");
+     var newNumber=document.createTextNode("|"+triangleAry[l][m]);
+     newSpan.appendChild(newNumber);
+     newRowDiv.appendChild(newSpan);
+  }
+     document.getElementById("divPascal").appendChild(newRowDiv);
+}
+
+
+}//-->
+
+</script>
+
+  
+</head>
+
+<body>
+<h2 class="divPascal">PASCAL'S TRIANGLE</h2>
+<div id="divPascal" class="divPascal"></div>
+</body>
+
+</html>

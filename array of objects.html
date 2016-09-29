@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<p id="demo"></p>
+
+<script>
+function person(first, last, age, eye) {
+    this.firstName = first;
+    this.lastName = last;
+    this.age = age;
+    this.eyeColor = eye;
+}
+
+var myFather = new person("John", "Doe", 50, "blue");
+var myMother = new person("Sally", "Rally", 48, "green");
+var myParents=new Array();
+//myParents= [{"firstName":"John", "lastName":"Doe", "age":50, "eyeColor":"blue"}];
+//myParents.push(new person("John", "Doe", 50, "blue"));
+//myParents.push(new person("Michelle", "ob", 50, "blue"));
+myParents=[new person("Jzxczx", "Doe", 50, "blue"),new person("dfsfsdsd", "Doe", 50, "blue")];
+
+document.getElementById("demo").innerHTML =
+"My father is " + myFather.firstName+ ". My mother is " + myParents[1].lastName + " "+ myParents[1].firstName  ; 
+
+
+
+</script>
+
+</body>
+</html>

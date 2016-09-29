@@ -1,0 +1,39 @@
+Working with Arrays
+
+
+Array is an object in Javascript and it comes with several useful methods that allow you to manipulate strings or data contained in any given array.
+Let's take a look at the reverse() function today.
+
+As the name suggests, the data in the array can be arranged in reverse order using the reverse function like so :
+
+<code>
+var arrayOfName=["tom", "peter","susan","zack"];
+console.log(arrayOfName);    // outputs ["tom", "peter", "susan", "zack"]
+reverseNames=arrayOfName.reverse()
+console.log(reverseNames);   // outputs ["zack", "susan", "peter", "tom"]
+</code>
+One important thing to remember is that when you create an array using a reverse it does not cretae another copy of the array. In this example, the reverseNames array is a reference to the original array  or it just points to the original arrayOfName array.
+
+Let's prove it.
+
+Proof #1. Display the value of arrayOfNames in console after applying the reverse(). 
+<code>
+console.log(arrayOfNames) // outputs ["zack", "susan", "peter", "tom"]
+</code>
+
+Proof#2. Add another name to arrayOfNames and reverseNames array each. The names "amy" and "bob" will be added to both the original and the reversed array like below
+
+<code>
+arrayOfName.push("amy");
+reverseNames.push("bob");
+console.log(arrayOfName);  //outputs    ["zack", "susan", "peter", "tom", "amy", "bob"]
+console.log(reverseNames); //outputs    ["zack", "susan", "peter", "tom", "amy", "bob"]
+</code>
+
+Proof #3. Finally, deleteing elements from either of the arrays , deletes it from the other array too.
+
+<code>
+reverseNames.pop();
+console.log(arrayOfName);  //outputs    "zack", "susan", "peter", "tom", "amy"]
+console.log(reverseNames); //outputs    "zack", "susan", "peter", "tom", "amy"]
+</code>
