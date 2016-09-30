@@ -46,27 +46,20 @@ function createGrid() {
 
     if (clickcount % 2 == 0) {
       if (this.innerText == "\u00a0") this.innerText = "X";
-      if (xCount == 3) {
-        checkForWinner('X');
-        xCount = 1;
-        $('#counterShow').text(xCount);
-      } else {
+    
         xCount++;
-        $('#counterShow').text(xCount);
-      }
+        $('#xcounterShow').text(xCount);
+    
     } else {
       if (this.innerText == "\u00a0") this.innerText = "O";
-      if (oCount == 3) {
-        checkForWinner('O');
-        oCount = 1;
-
-      } else {
+    
         oCount++;
-      }
+        $('#ocounterShow').text(oCount);
+     
     }
-    if (xCount > 2 && xCount % 3 == 0) checkForWinner('X');
-    if (oCount > 2 && oCount % 3 == 0) checkForWinner('O');
-  })
+    if (xCount > 2 ) checkForWinner('X');
+    if (oCount > 2) checkForWinner('O');
+  });
 
 }
 createGrid();
