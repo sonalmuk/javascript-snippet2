@@ -1,5 +1,9 @@
 <html>
+<head>
+<title>Tic-Tac-Toe | Javascript | DOM |Event</title>
+
 <style>
+.container{width: 186px;margin:auto}
 .eachCell {
   display: inline-block;
   border-right: 1px solid black;
@@ -7,32 +11,70 @@
   width: 60px;
   height: 60px;
   text-align:center;
-  
+}
+.leftCell{border-left: 1px solid black;}
+.topCell{border-top: 1px solid black;}
+.winner{color:red !important; font-weight:bold}
+.xplayer{color:blue;}
+.oplayer{color:green;}
+#divTicTac {
+  width: 184px;
+  height: 184px;
+  margin: 5px auto;
+  padding: 0px;
+  border: 1px;
 }
 
-#divTicTac {
-  width: 240px;
-  height: 240px;
-  margin: 0 auto;
-  padding: 11px;
-  border: 5px;
-}
-.strike {animation: 3s linear 1s slidein;}
 </style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+</head>
+<body>
+<div class="container">
+<div id="divTicTac">
+</div>
+<button id="btnNewGame" name="newgame">New Game</button>
+</div>
+<div id="ocounterShow" style="display:none">
+</div>
+<div id="xcounterShow" style="display:none">
+</div>
+<div id="counterShow" style="display:none">
+</div>
+</body>
+
 <script>
 var clickcount = 0;
 var xCount = 0;
 var oCount = 0;
-
+var thereisawinner=false;
+function clearall(clearflag){
+  	var el=document.getElementsByClassName("eachCell");
+	console.log(el[0].innerText);
+ 	for(var i=0;i<el.length;i++) {
+		console.log("value=="+el[i].innerText);
+		el[i].innerText="\u00a0";
+		clickcount=0;xCount=0;oCount=0;
+  	}
+}
+function setWinner(cell1,cell2,cell3){
+  //cell1.style.color=cell2.style.color=cell3.style.color="red";
+  $(cell1).addClass("winner");
+  $(cell2).addClass("winner");
+  $(cell3).addClass("winner");
+  thereisawinner=true;
+}
 function createGrid() {
-
   for (var newrows = 0; newrows < 3; newrows++) {
     var divRow = document.createElement("div");
     divRow.setAttribute("id", "row" + newrows);
+    
+    
     for (var cells = 0; cells < 3; cells++) {
       var newspan = document.createElement("div");
-
+      if(cells==0 )divRow.style.borderLeft="1px solid black";
+      if(newrows==0)divRow.style.borderTop="1px solid black";
       newspan.className = "eachCell";
+      
       var newnode = document.createTextNode("\u00a0");
       newspan.appendChild(newnode);
       divRow.appendChild(newspan);
@@ -41,34 +83,48 @@ function createGrid() {
     document.getElementById("divTicTac").appendChild(divRow);
 
   }
-  $(".eachCell").click(function() {
-    clickcount++;
+}
 
+createGrid();
+document.getElementById("btnNewGame").addEventListener("click",clearall);
+  $(".eachCell").click(function() {
+    if(thereisawinner){
+	$("#btnNewGame").click();
+	thereisawinner=false;
+	clickcount = 0;
+	xCount = 0;
+	oCount = 0;
+
+    }
+    if(clickcount==9){clearall();return;}
+    if (this.innerText != "\u00a0")  return;
+    clickcount++;
+    $('#counterShow').text(clickcount);
+       $(".eachCell").removeClass("winner"); 
     if (clickcount % 2 == 0) {
       if (this.innerText == "\u00a0") this.innerText = "X";
-    
+        this.className="eachCell xplayer";
+        //$(".eachCell").addClass('xplayer');
         xCount++;
-        $('#xcounterShow').text(xCount);
+        $('#xcounterShow').text(xCount + ' ' + this.innerText);
     
     } else {
       if (this.innerText == "\u00a0") this.innerText = "O";
-    
+        this.className="eachCell oplayer";
+	//$(".eachCell").addClass('oplayer');
         oCount++;
         $('#ocounterShow').text(oCount);
      
     }
-    if (xCount > 2 ) checkForWinner('X');
-    if (oCount > 2) checkForWinner('O');
+    if (xCount > 2 ) checkForWinner('X',clearall);
+    if (oCount > 2) checkForWinner('O',clearall);
   });
 
-}
-createGrid();
 
-function checkForWinner(checkLetter) {
-  //if(clickcount>=8) {alert('game over, please restart');return;}
-  //logic - whether x, or o.
-  //alert('time to check');
-  //assume checking for O
+
+
+function checkForWinner(checkLetter,clearall) {
+
   var checkFor = checkLetter;
   var centernode = document.getElementById("row1").childNodes[1];
   var thisRow = document.getElementById("row1");
@@ -76,39 +132,31 @@ function checkForWinner(checkLetter) {
   var nextrow = document.getElementById("row1").nextSibling;
   var firstRow = document.getElementById("row0");
   var lastRow = document.getElementById("row2");
-  // alert(thisnode.firstChild.nodeValue + ' ' + thisnode.lastChild.nodeValue);
-  // alert(previousrow.childNodes[1].innerText);
   if (centernode.innerText == checkFor) {
     if (thisRow.childNodes[0].innerText == checkFor && thisRow.childNodes[2].innerText == checkFor) {
-      alert(checkFor + ' is a winner;');
-       thisRow.className="strike";
-       thisRow.style.color="red";
-       thisRow.style.fontWeight="bold";
-      
+      setWinner(centernode,thisRow.childNodes[0],thisRow.childNodes[2]);
     } else if (previousrow.childNodes[1].innerText == checkFor && nextrow.childNodes[1].innerText == checkFor) {
-      alert(checkFor + ' is a winner;');
+      setWinner(centernode,previousrow.childNodes[1],nextrow.childNodes[1]);
     } else if (previousrow.childNodes[0].innerText == checkFor && nextrow.childNodes[2].innerText == checkFor) {
-      alert(checkFor + ' is a winner;');
+      setWinner(centernode,previousrow.childNodes[0],nextrow.childNodes[2]);
     } else if (previousrow.childNodes[2].innerText == checkFor && nextrow.childNodes[0].innerText == checkFor) {
-      alert(checkFor + ' is a winner;');
+      setWinner(centernode,previousrow.childNodes[2],nextrow.childNodes[0]);
     }
-  }
-
- else if (document.getElementById("row0").childNodes[0].innerText == checkFor) {
+  } else if (document.getElementById("row0").childNodes[0].innerText == checkFor) {
     if (firstRow.childNodes[1].innerText == checkFor && firstRow.childNodes[2].innerText == checkFor) {
-      alert(checkFor + ' is a winner;');
+     setWinner(document.getElementById("row0").childNodes[0],firstRow.childNodes[1],firstRow.childNodes[2]);
     } else if (thisRow.childNodes[0].innerText == checkFor && lastRow.childNodes[0].innerText == checkFor) {
-      alert(checkFor + ' is a winner;');
+      setWinner(document.getElementById("row0").childNodes[0],thisRow.childNodes[0],lastRow.childNodes[0]);
     }
   } else if (firstRow.childNodes[2].innerText == checkFor) {
     if (firstRow.childNodes[1].innerText == checkFor && firstRow.childNodes[0].innerText == checkFor) {
-      alert(checkFor + ' is a winner;');
+      setWinner(firstRow.childNodes[2],firstRow.childNodes[1],firstRow.childNodes[0]);
     } else if (thisRow.childNodes[2].innerText == checkFor && lastRow.childNodes[2].innerText == checkFor) {
-      alert(checkFor + ' is a winner;');
+      setWinner(firstRow.childNodes[2],thisRow.childNodes[2],lastRow.childNodes[2]);
     }
   } else if (lastRow.childNodes[2].innerText == checkFor) {
     if (lastRow.childNodes[0].innerText == checkFor && lastRow.childNodes[1].innerText == checkFor)
-      alert(checkFor + ' is a winner;');
+      setWinner(lastRow.childNodes[2],lastRow.childNodes[0],lastRow.childNodes[1]);
   }
 
 }
@@ -116,11 +164,6 @@ function checkForWinner(checkLetter) {
 //add event
 
 </script>
-<body>
-<div id="divTicTac">
 
-</div>
-<div id="counterShow" style="display:none">
-</div>
-</body>
+
 </html>
