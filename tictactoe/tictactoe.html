@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<title>Tic-Tac-Toe | Javascript | DOM |Event</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="content" description="tic tac toe game using bootstrap and JAvascript">
+<style>
+.abc{
+   margin:0px auto;
+   padding:2px;
+   border:0px;
+   width:200px;
+}
+div {
+  margin:4px;
+  padding:0px;
+  border:0px; 
+}
+.winner {
+
+} 
+button{width:60px;height:60px}
+
+</style>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script></head>
+<body>
+<div class="abc">
+   <div>
+	<span id="1"><button class="btn btn-default"></button></span>
+	<span id="2"><button class="btn btn-default"></button></span>
+	<span id="3"><button class="btn btn-default"></button></span>
+   </div>
+   <div>
+	<span id="4"><button class="btn btn-default"></button></span>
+	<span id="5"><button class="btn btn-default"></button></span>
+	<span id="6"><button class="btn btn-default"></button></span>
+   </div>
+   <div>
+	<span id="7"><button class="btn btn-default"></button></span>
+	<span id="8"><button class="btn btn-default"></button></span>
+	<span id="9"><button class="btn btn-default"></button></span>
+   </div>
+</div>
+
+</div>
+
+</body>
+
+<script>
+var clickcount = 0;
+var xCount = 0;
+var oCount = 0;
+var thereisawinner=false;
+function clearAll(clearflag){
+  	/*var el=document.getElementsByClassName("eachCell");
+	console.log(el[0].innerText);
+ 	for(var i=0;i<el.length;i++) {
+		console.log("value=="+el[i].innerText);
+		el[i].innerText="\u00a0";
+		
+  	}*/
+	$("button").text("");
+	$("button").removeClass("btn-info");
+	$("button").removeClass("btn-primary");
+	$("button").removeClass("btn-danger");
+	clickcount=0;xCount=0;oCount=0;
+}
+function setWinner(cell1,cell2,cell3){
+  $(cell1).addClass("btn-danger");
+  $(cell2).addClass("btn-danger");
+  $(cell3).addClass("btn-danger");
+  thereisawinner=true;
+  return;
+}
+
+
+function checkForWinner(checkLetter,clearAll) {
+var checkFor=checkLetter;
+var one=document.getElementById("1").firstChild;
+var two=document.getElementById("2").childNodes[0];
+var three=document.getElementById("3").childNodes[0];
+var four=document.getElementById("4").childNodes[0];
+var five=document.getElementById("5").childNodes[0];
+var six=document.getElementById("6").childNodes[0];
+var seven=document.getElementById("7").childNodes[0];
+var eight=document.getElementById("8").childNodes[0];
+var nine=document.getElementById("9").childNodes[0];
+ if (five.innerText == checkFor) {
+   if (four.innerText == checkFor && six.innerText == checkFor) {
+      setWinner(four,five,six);
+    } else if (two.innerText == checkFor && eight.innerText == checkFor) {
+      setWinner(two,five,eight);
+    } else if (one.innerText == checkFor && nine.innerText == checkFor) {
+      setWinner(one,five,nine);
+    } else if (three.innerText == checkFor && seven.innerText == checkFor) {
+      setWinner(three,five,seven);
+    }
+  } else if (one.innerText == checkFor) {
+    if (two.innerText == checkFor && three.innerText == checkFor) {
+      setWinner(one,two,three);
+    } else if (four.innerText == checkFor && seven.innerText == checkFor) {
+      setWinner(one,four,seven);
+    }
+  } else if (three.innerText == checkFor) {
+    if (two.innerText == checkFor && one.innerText == checkFor) {
+      setWinner(three,two,one);
+    } else if (six.innerText == checkFor && nine.innerText == checkFor) {
+      setWinner(three,six,nine);
+    }
+  } else if (nine.innerText == checkFor) {
+    if (seven.innerText == checkFor && eight.innerText == checkFor)
+      setWinner(nine,eight,seven);
+  }else{
+    //alert('No match.Play Again!!');
+  }
+
+}
+
+//add event
+ 
+$(document).ready(function(){
+   $("button").click(function(){
+    if(thereisawinner){
+	//$("#btnNewGame").click();
+	clearAll();
+	thereisawinner=false;
+	clickcount = 0;
+	xCount = 0;
+	oCount = 0;
+    }
+    if(clickcount==9){
+	clearAll();return;
+    }
+    if (this.innerText!="")  return;
+ 	clickcount++;
+       if (clickcount%2==0) {
+         if ($(this).text("")) {
+            $(this).text("X")
+            $(this).addClass("btn-primary");
+            xCount++;
+         }
+       } else if (clickcount%2==1){
+          if ($(this).text("")) {
+            $(this).text("O");
+            $(this).addClass("btn-info");
+            oCount++;
+         }
+     
+       } else {
+	  return false;
+       }
+       if (xCount > 2 ) checkForWinner('X',clearAll);
+       if (oCount > 2) checkForWinner('O',clearAll);
+   });
+});
+</script>
+
+
+</html>

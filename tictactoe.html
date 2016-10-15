@@ -1,0 +1,102 @@
+<!doctype html>
+<html>
+<head>
+<title>Tic-Tac-Toe | Javascript | DOM |Event</title>
+
+<style>
+.container{
+   margin:0px auto;
+   padding:2px;
+   border:1px solid black
+   
+}
+
+
+</style>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script></head>
+<body>
+<div class="container">dfsdfs
+   <div id="ticTacGrid">
+       <div id="row1"><button name="1" value="x" class="btn btn-primary">TEST</button> <button name="2"/><button name="3"/>
+       </div>
+       <div id="row2"><button name="4"/> <button name="5"/><button name="6"/>
+       </div>
+       <div id="row3"><button name="7"/> <button name="8"/><button name="9"/>
+       </div>
+   </div>
+   
+</div>
+</body>
+
+<script>
+var clickcount = 0;
+var xCount = 0;
+var oCount = 0;
+var thereisawinner=false;
+function clearall(clearflag){
+  	var el=document.getElementsByClassName("eachCell");
+	console.log(el[0].innerText);
+ 	for(var i=0;i<el.length;i++) {
+		console.log("value=="+el[i].innerText);
+		el[i].innerText="\u00a0";
+		clickcount=0;xCount=0;oCount=0;
+  	}
+}
+function setWinner(cell1,cell2,cell3){
+  //cell1.style.color=cell2.style.color=cell3.style.color="red";
+  $(cell1).addClass("winner");
+  $(cell2).addClass("winner");
+  $(cell3).addClass("winner");
+  thereisawinner=true;
+}
+
+document.getElementById("btnNewGame").addEventListener("click",clearall);
+  $(".eachCell").click(function() {
+    if(thereisawinner){
+	$("#btnNewGame").click();
+	thereisawinner=false;
+	clickcount = 0;
+	xCount = 0;
+	oCount = 0;
+
+    }
+    if(clickcount==9){clearall();return;}
+    if (this.innerText != "\u00a0")  return;
+    clickcount++;
+    $('#counterShow').text(clickcount);
+       $(".eachCell").removeClass("winner"); 
+    if (clickcount % 2 == 0) {
+      if (this.innerText == "\u00a0") this.innerText = "X";
+        this.className="eachCell xplayer";
+        //$(".eachCell").addClass('xplayer');
+        xCount++;
+        $('#xcounterShow').text(xCount + ' ' + this.innerText);
+    
+    } else {
+      if (this.innerText == "\u00a0") this.innerText = "O";
+        this.className="eachCell oplayer";
+	//$(".eachCell").addClass('oplayer');
+        oCount++;
+        $('#ocounterShow').text(oCount);
+     
+    }
+    if (xCount > 2 ) checkForWinner('X',clearall);
+    if (oCount > 2) checkForWinner('O',clearall);
+  });
+
+
+
+
+function checkForWinner(checkLetter,clearall) {
+
+
+}
+
+//add event
+
+</script>
+
+
+</html>
